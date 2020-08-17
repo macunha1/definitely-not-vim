@@ -1,5 +1,5 @@
 " Commands to execute before the Plugins are loaded
-let g:spf13_bundle_groups = ['general', 'programming']
+let g:dnotvim_bundle_groups = ['general', 'programming']
 
 let g:vim_json_syntax_concealcursor = ''
 let g:vim_json_syntax_conceal = 0

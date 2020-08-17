@@ -12,13 +12,13 @@
 "   While much of it is beneficial for general use, I would
 "   recommend picking out the parts you want and understand.
 "
-"   This file imports the various plugins of spf13. If you
+"   This file imports the various plugins of dnotvim. If you
 "   wish to alter which groups are imported, see vimrc.before.
 "   If you wish to add or remove individual bundles, create
 "   $XDG_CONFIG_HOME/vim/.vimrc.bundles.local and `Bundle` or `UnBundle` as needed
 "   from there.
 "
-"   You can find me at http://spf13.com
+"   You can find me at http://dnotvim.com
 " }
 
 " Environment {
@@ -44,8 +44,8 @@ endif
 
 " In your .vimrc.before.local file
 " list only the plugin groups you will use
-if !exists('g:spf13_bundle_groups')
-    let g:spf13_bundle_groups=['general', \
+if !exists('g:dnotvim_bundle_groups')
+    let g:dnotvim_bundle_groups=['general', \
     'writing', \
     'neocomplete', \
     'programming', \
@@ -56,7 +56,7 @@ if !exists('g:spf13_bundle_groups')
 endif
 
 " General {
-if count(g:spf13_bundle_groups, 'general')
+if count(g:dnotvim_bundle_groups, 'general')
     Bundle 'christoomey/vim-tmux-navigator'
     Bundle 'editorconfig/editorconfig-vim'
     Bundle 'junegunn/goyo.vim'
@@ -81,7 +81,7 @@ if count(g:spf13_bundle_groups, 'general')
     Bundle 'mbbill/undotree'
     Bundle 'nathanaelkane/vim-indent-guides'
 
-    if !exists('g:spf13_no_views')
+    if !exists('g:dnotvim_no_views')
         Bundle 'vim-scripts/restore_view.vim'
     endif
 
@@ -95,7 +95,7 @@ endif
 " }
 
 " Writing {
-if count(g:spf13_bundle_groups, 'writing')
+if count(g:dnotvim_bundle_groups, 'writing')
     Bundle 'reedes/vim-litecorrect'
     Bundle 'reedes/vim-textobj-sentence'
     Bundle 'reedes/vim-textobj-quote'
@@ -104,7 +104,7 @@ endif
 " }
 
 " General Programming {
-if count(g:spf13_bundle_groups, 'programming')
+if count(g:dnotvim_bundle_groups, 'programming')
     " Pick one of the checksyntax, jslint, or syntastic
     Bundle 'scrooloose/syntastic'
     Bundle 'tpope/vim-fugitive'
@@ -124,7 +124,7 @@ endif
 " }
 
 " Infra {
-if count(g:spf13_bundle_groups, 'infra')
+if count(g:dnotvim_bundle_groups, 'infra')
     Bundle 'LnL7/vim-nix'
 
     Bundle 'bracki/vim-prometheus'
@@ -132,18 +132,18 @@ if count(g:spf13_bundle_groups, 'infra')
 endif
 " }
 " Snippets & AutoComplete {
-if count(g:spf13_bundle_groups, 'snippets')
+if count(g:dnotvim_bundle_groups, 'snippets')
     Bundle 'garbas/vim-snipmate'
     Bundle 'honza/vim-snippets'
     " Source support_function.vim to support vim-snippets.
-    if filereadable(expand("$XDG_CONFIG_HOME/vim/bundle/vim-snippets/snippets/support_functions.vim"))
+    if filereadable(expand($XDG_CONFIG_HOME . '/vim/bundle/vim-snippets/snippets/support_functions.vim'))
         source $XDG_CONFIG_HOME/vim/bundle/vim-snippets/snippets/support_functions.vim
     endif
-elseif count(g:spf13_bundle_groups, 'youcompleteme')
+elseif count(g:dnotvim_bundle_groups, 'youcompleteme')
     Bundle 'Valloric/YouCompleteMe'
     Bundle 'SirVer/ultisnips'
     Bundle 'honza/vim-snippets'
-elseif count(g:spf13_bundle_groups, 'neocomplete')
+elseif count(g:dnotvim_bundle_groups, 'neocomplete')
     Bundle 'Shougo/neocomplete.vim.git'
     Bundle 'Shougo/neocomplcache'
     Bundle 'Shougo/neosnippet'
@@ -153,7 +153,7 @@ endif
 " }
 
 " Python {
-if count(g:spf13_bundle_groups, 'python')
+if count(g:dnotvim_bundle_groups, 'python')
     " Pick either python-mode or pyflakes & pydoc
     Bundle 'klen/python-mode'
     Bundle 'yssource/python.vim'
@@ -163,7 +163,7 @@ endif
 " }
 
 " Javascript {
-if count(g:spf13_bundle_groups, 'javascript')
+if count(g:dnotvim_bundle_groups, 'javascript')
     Bundle 'elzr/vim-json'
     Bundle 'groenewege/vim-less'
     Bundle 'pangloss/vim-javascript'
@@ -173,7 +173,7 @@ endif
 " }
 
 " Scala {
-if count(g:spf13_bundle_groups, 'scala')
+if count(g:dnotvim_bundle_groups, 'scala')
     Bundle 'derekwyatt/vim-scala'
     Bundle 'derekwyatt/vim-sbt'
     Bundle 'xptemplate'
@@ -181,7 +181,7 @@ endif
 " }
 
 " Haskell {
-if count(g:spf13_bundle_groups, 'haskell')
+if count(g:dnotvim_bundle_groups, 'haskell')
     Bundle 'travitch/hasksyn'
     Bundle 'dag/vim2hs'
     Bundle 'Twinside/vim-haskellConceal'
@@ -196,7 +196,7 @@ endif
 " }
 
 " HTML {
-if count(g:spf13_bundle_groups, 'html')
+if count(g:dnotvim_bundle_groups, 'html')
     Bundle 'hail2u/vim-css3-syntax'
     Bundle 'gorodinskiy/vim-coloresque'
     Bundle 'tpope/vim-haml'
@@ -205,7 +205,7 @@ endif
 " }
 
 " Ruby {
-if count(g:spf13_bundle_groups, 'ruby')
+if count(g:dnotvim_bundle_groups, 'ruby')
     Bundle 'tpope/vim-rails'
     let g:rubycomplete_buffer_loading = 1
     "let g:rubycomplete_classes_in_global = 1
@@ -214,14 +214,14 @@ endif
 " }
 
 " Go Lang {
-if count(g:spf13_bundle_groups, 'go')
+if count(g:dnotvim_bundle_groups, 'go')
     "Bundle 'Blackrush/vim-gocode'
     Bundle 'fatih/vim-go'
 endif
 " }
 
 " Elixir {
-if count(g:spf13_bundle_groups, 'elixir')
+if count(g:dnotvim_bundle_groups, 'elixir')
     Bundle 'elixir-lang/vim-elixir'
     Bundle 'carlosgaldino/elixir-snippets'
     Bundle 'mattreduce/vim-mix'
@@ -229,10 +229,10 @@ endif
 " }
 
 " Misc {
-if count(g:spf13_bundle_groups, 'misc')
+if count(g:dnotvim_bundle_groups, 'misc')
     Bundle 'sbdchd/neoformat'
     Bundle 'tpope/vim-markdown'
-    Bundle 'spf13/vim-preview'
+    Bundle 'dnotvim/vim-preview'
     Bundle 'cespare/vim-toml'
     Bundle 'Glench/Vim-Jinja2-Syntax'
 endif
