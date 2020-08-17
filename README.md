@@ -29,38 +29,35 @@ This is definitely not the Vim configuration you're looking for.
 Fully XDG base directory spec complaint ".vimrc" (definitely not) configuration
 aiming for a small footprint and clean $HOME.
 
-Most of this file came from [spf13/spf13-vim](https://github.com/spf13/spf13-vim).
+Most of this repository came from [spf13/spf13-vim](https://github.com/spf13/spf13-vim).
 However, it's worth mentioning that spf13-vim itself is abandoned,
 as well as the Vundle (plugin manager) used in the setup.
 
 For a modern setup I suggest replacing Vundle with [Neobundle](https://github.com/Shougo/neobundle.vim), plus
 a refactor in the bundles.vim.
 
-
 ## Installation
 
-Clone this repository to your XDG config home
+Clone this repository to your XDG base configuration home
 
 ```bash
 git clone https://github.com/macunha1/definitely-not-vim \
     ${XDG_CONFIG_HOME}/vim
 ```
 
-Then TL;DR instructions at [Vundle's README](https://github.com/VundleVim/Vundle.vim#quick-start).
+TL;DR instructions at [Vundle's README](https://github.com/VundleVim/Vundle.vim#quick-start).
 
 ```bash
-git clone https://github.com/VundleVim/Vundle.vim#quick-start \
+git clone https://github.com/VundleVim/Vundle.vim \
     ${XDG_CONFIG_HOME}/vim/bundle/vundle
 ```
 
-Edit mainly the [before](before.vim) with your customizations, you can pick
+Edit mainly the [before](before.vim) with your customization, you can pick
 some premade "bundle groups" with generic configurations (e.g. programming
 languages or "infra" tools). More info at [bundles](bundles.vim).
 
-Once you finish your tweaks, open a Vim anywhere to load the initial setup
-(create folders and load stuff) then run `:BundleInstall`
-
-AAND FIGHT!
+Once you finish your tweaks, open `vim` anywhere to load the initial setup
+(create folders and load stuff) then run `:BundleInstall`.
 
 ## License
 
@@ -75,5 +72,4 @@ means.
 ## Credits
 
 Thanks to [spf13](https://github.com/spf13/) for the work at
-[spf13-vim](https://github.com/spf13/spf13-vim). The primary source of
-code for not having this configuration.
+[spf13-vim](https://github.com/spf13/spf13-vim).

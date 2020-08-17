@@ -1,24 +1,40 @@
 " Modeline and Notes {
 " vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:
 "
-"                    __ _ _____              _
-"         ___ _ __  / _/ |___ /      __   __(_)_ __ ___
-"        / __| '_ \| |_| | |_ \ _____\ \ / /| | '_ ` _ \
-"        \__ \ |_) |  _| |___) |_____|\ V / | | | | | | |
-"        |___/ .__/|_| |_|____/        \_/  |_|_| |_| |_|
-"            |_|
 "
-"   This is the personal .vimrc.bundles file of Steve Francia.
-"   While much of it is beneficial for general use, I would
-"   recommend picking out the parts you want and understand.
+"    ##############..... ##############
+"    ##############......##############
+"     ###########._ ......_###########
+"   __| |####/  _(_).....(_) |#####| |_   _
+"  / _` |/ _ \ |#| | '_ \| | __/ _ \ | | | |
+" | (_| |  __/  _| | | | | | |#  __/ | |_| |
+"  \__,_|\___|_|#|_|_| |_|_|\__\___|_|\__, |
+"      ##########.......########      |___/
+"      ##########_...._##| |###..
+"      ######| '_ \./ _ \| __|.....
+"    ..######| |#| | (#) | |_.........
+"  ....######|_|#|_|\___/ \__|..........
+"    ..################JJJ............
+"      ################.............
+"      ##############.JJJ.JJJJJJJJJJ
+"      ############...JJ...JJ..JJ  JJ
+"      ##########....JJ...JJ..JJ  JJ
+"      ########......JJJ..JJJ JJJ JJJ
+"      ######    .........
+"                  .....
+"                    .
 "
-"   This file imports the various plugins of dnotvim. If you
-"   wish to alter which groups are imported, see vimrc.before.
-"   If you wish to add or remove individual bundles, create
-"   $XDG_CONFIG_HOME/vim/.vimrc.bundles.local and `Bundle` or `UnBundle` as needed
-"   from there.
+"   This is definitely not the Vim configuration you're looking for.
 "
-"   You can find me at http://dnotvim.com
+"   Fully XDG base directory spec complaint ".vimrc" (definitely not)
+"   configuration aiming for a small footprint.
+"
+"   Most of this file came from github.com/spf13/spf13-vim.
+"   However, it's worth mentioning that spf13-vim itself is abandoned,
+"   as well as the Vundle (plugin manager) used in the setup.
+"
+"   For a modern setup I suggest replacing Vundle with Neobundle, plus
+"   a refactor in the bundles.vim. Ref: github.com/Shougo/neobundle.vim
 " }
 
 " Environment {

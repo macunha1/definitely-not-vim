@@ -1,5 +1,5 @@
-" CodeTheme inspired on thor colorscheme.
-" Functions inspired on nord-vim
+" Colorscheme inspired on thor. Best dark theme ever.
+" Functions and code design inspired on nord-vim.
 
 let g:colors_name = "retrowave"
 
@@ -25,43 +25,43 @@ let s:lightcyan_hex  = "#4DEEDD"
 let s:white_hex		 = "#FBF1C7"
 
 if (exists("g:retrowave_default_termcolors") && g:retrowave_default_termcolors)
-	let s:black_term	  = "0"
-	let s:red_term		  = "1"
-	let s:blue_term		  = "4"
-	let s:magenta_term	  = "5"
-	let s:cyan_term		  = "6"
-	let s:lightgray_term  = "7"
-	let s:darkgray_term   = "8"
-	let s:lightgreen_term = "10"
-	let s:lightblue_term  = "12"
-	let s:lightcyan_term  = "14"
-	let s:white_term	  = "15"
+	let s:black_term		= "0"
+	let s:red_term			= "1"
+	let s:blue_term			= "4"
+	let s:magenta_term		= "5"
+	let s:cyan_term			= "6"
+	let s:lightgray_term	= "7"
+	let s:darkgray_term		= "8"
+	let s:lightgreen_term	= "10"
+	let s:lightblue_term	= "12"
+	let s:lightcyan_term	= "14"
+	let s:white_term		= "15"
 else
-	let s:black_term	  = "234"
-	let s:red_term		  = "204"
-	let s:blue_term		  = "39"
-	let s:magenta_term	  = "207"
-	let s:cyan_term		  = "87"
-	let s:lightgray_term  = "230"
-	let s:darkgray_term   = "241"
-	let s:lightgreen_term = "49"
-	let s:lightblue_term  = "87"
-	let s:lightcyan_term  = "87"
-	let s:white_term	  = "255"
+	let s:black_term		= "234"
+	let s:red_term			= "204"
+	let s:blue_term			= "39"
+	let s:magenta_term		= "207"
+	let s:cyan_term			= "87"
+	let s:lightgray_term	= "230"
+	let s:darkgray_term		= "241"
+	let s:lightgreen_term	= "49"
+	let s:lightblue_term	= "87"
+	let s:lightcyan_term	= "87"
+	let s:white_term		= "255"
 endif
 
 "+- Neovim Terminal Colors -+
 if has('nvim')
-	let g:terminal_color_0  = s:black_hex
-	let g:terminal_color_1  = s:red_hex
-	let g:terminal_color_2  = s:red_hex
-	let g:terminal_color_3  = s:cyan_hex
-	let g:terminal_color_4  = s:blue_hex
-	let g:terminal_color_5  = s:magenta_hex
-	let g:terminal_color_6  = s:cyan_hex
-	let g:terminal_color_7  = s:lightgreen_hex
-	let g:terminal_color_8  = s:darkgray_hex
-	let g:terminal_color_9  = s:red_hex
+	let g:terminal_color_0	= s:black_hex
+	let g:terminal_color_1	= s:red_hex
+	let g:terminal_color_2	= s:red_hex
+	let g:terminal_color_3	= s:cyan_hex
+	let g:terminal_color_4	= s:blue_hex
+	let g:terminal_color_5	= s:magenta_hex
+	let g:terminal_color_6	= s:cyan_hex
+	let g:terminal_color_7	= s:lightgreen_hex
+	let g:terminal_color_8	= s:darkgray_hex
+	let g:terminal_color_9	= s:red_hex
 	let g:terminal_color_10 = s:lightgreen_hex
 	let g:terminal_color_11 = s:lightgreen_hex
 	let g:terminal_color_12 = s:lightblue_hex
@@ -72,44 +72,44 @@ endif
 
 "+- Vim 8 Terminal Colors -+
 if has('terminal')
-  let g:terminal_ansi_colors = [
-	 \ s:black_hex,
-	 \ s:red_hex,
-	 \ s:red_hex,
-	 \ s:cyan_hex,
-	 \ s:blue_hex,
-	 \ s:magenta_hex,
-	 \ s:cyan_hex,
-	 \ s:lightgreen_hex,
-	 \ s:darkgray_hex,
-	 \ s:red_hex,
-	 \ s:lightgreen_hex,
-	 \ s:lightgreen_hex,
-	 \ s:lightblue_hex,
-	 \ s:magenta_hex,
-	 \ s:lightcyan_hex,
-	 \ s:white_hex,
-	\ ]
+	let g:terminal_ansi_colors = [
+				\ s:black_hex,
+				\ s:red_hex,
+				\ s:red_hex,
+				\ s:cyan_hex,
+				\ s:blue_hex,
+				\ s:magenta_hex,
+				\ s:cyan_hex,
+				\ s:lightgreen_hex,
+				\ s:darkgray_hex,
+				\ s:red_hex,
+				\ s:lightgreen_hex,
+				\ s:lightgreen_hex,
+				\ s:lightblue_hex,
+				\ s:magenta_hex,
+				\ s:lightcyan_hex,
+				\ s:white_hex,
+				\ ]
 endif
 
 set t_Co=256 " Enable 256 colors
 
 function! s:hi(group, guifg, guibg, ctermfg, ctermbg, attr)
-  if a:guifg != ""
-	exec "hi " . a:group . " guifg=" . a:guifg
-  endif
-  if a:guibg != ""
-	exec "hi " . a:group . " guibg=" . a:guibg
-  endif
-  if a:ctermfg != ""
-	exec "hi " . a:group . " ctermfg=" . a:ctermfg
-  endif
-  if a:ctermbg != ""
-	exec "hi " . a:group . " ctermbg=" . a:ctermbg
-  endif
-  if a:attr != ""
-	exec "hi " . a:group . " gui=" . a:attr . " cterm=" . a:attr
-  endif
+	if a:guifg != ""
+		exec "hi " . a:group . " guifg=" . a:guifg
+	endif
+	if a:guibg != ""
+		exec "hi " . a:group . " guibg=" . a:guibg
+	endif
+	if a:ctermfg != ""
+		exec "hi " . a:group . " ctermfg=" . a:ctermfg
+	endif
+	if a:ctermbg != ""
+		exec "hi " . a:group . " ctermbg=" . a:ctermbg
+	endif
+	if a:attr != ""
+		exec "hi " . a:group . " gui=" . a:attr . " cterm=" . a:attr
+	endif
 endfunction
 
 " General colors
@@ -218,21 +218,21 @@ call s:hi("rubyPredefinedVariable", s:white_hex, "NONE", s:white_term, "NONE", "
 call s:hi("rubySymbol", s:lightcyan_hex, "NONE", s:lightcyan_term, "NONE", "NONE")
 call s:hi("railsMethod", s:white_hex, "NONE", s:white_term, "NONE", "NONE")
 
-hi! link rubyRegexp			   Keyword
-hi! link rubyRegexpDelimiter   Keyword
-hi! link rubyClass			   Keyword
-hi! link rubyModule			   Keyword
-hi! link rubyKeyword		   Keyword
-hi! link rubyOperator		   Operator
-hi! link rubyIdentifier		   Identifier
-hi! link rubyInstanceVariable  Identifier
-hi! link rubyGlobalVariable    Identifier
-hi! link rubyClassVariable	   Identifier
+hi! link rubyRegexp				Keyword
+hi! link rubyRegexpDelimiter	Keyword
+hi! link rubyClass				Keyword
+hi! link rubyModule				Keyword
+hi! link rubyKeyword			Keyword
+hi! link rubyOperator			Operator
+hi! link rubyIdentifier			Identifier
+hi! link rubyInstanceVariable	Identifier
+hi! link rubyGlobalVariable		Identifier
+hi! link rubyClassVariable		Identifier
 
 " Java
-hi! link javaScopeDecl		   Identifier
-hi! link javaDocSeeTag		   SpecialKey
-hi! link javaCommentTitle	   javaDocSeeTag
-hi! link javaDocTags		   javaDocSeeTag
-hi! link javaDocParam		   javaDocSeeTag
-hi! link javaDocSeeTagParam    javaDocSeeTag
+hi! link javaScopeDecl			Identifier
+hi! link javaDocSeeTag			SpecialKey
+hi! link javaCommentTitle		javaDocSeeTag
+hi! link javaDocTags			javaDocSeeTag
+hi! link javaDocParam			javaDocSeeTag
+hi! link javaDocSeeTagParam		javaDocSeeTag
