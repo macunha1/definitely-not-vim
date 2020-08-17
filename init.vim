@@ -1,47 +1,43 @@
 " Modeline and Notes {
 " vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:
 "
-"                    __ _ _____              _
-"         ___ _ __  / _/ |___ /      __   __(_)_ __ ___
-"        / __| '_ \| |_| | |_ \ _____\ \ / /| | '_ ` _ \
-"        \__ \ |_) |  _| |___) |_____|\ V / | | | | | | |
-"        |___/ .__/|_| |_|____/        \_/  |_|_| |_| |_|
-"            |_|
 "
-"   This is the personal .vimrc file of Steve Francia.
-"   While much of it is beneficial for general use, I would
-"   recommend picking out the parts you want and understand.
+"    ##############..... ##############
+"    ##############......##############
+"     ###########._ ......_###########
+"   __| |####/  _(_).....(_) |#####| |_   _
+"  / _` |/ _ \ |#| | '_ \| | __/ _ \ | | | |
+" | (_| |  __/  _| | | | | | |#  __/ | |_| |
+"  \__,_|\___|_|#|_|_| |_|_|\__\___|_|\__, |
+"      ##########.......########      |___/
+"      ##########_...._##| |###..
+"      ######| '_ \./ _ \| __|.....
+"    ..######| |#| | (#) | |_.........
+"  ....######|_|#|_|\___/ \__|..........
+"    ..################JJJ............
+"      ################.............
+"      ##############.JJJ.JJJJJJJJJJ
+"      ############...JJ...JJ..JJ  JJ
+"      ##########....JJ...JJ..JJ  JJ
+"      ########......JJJ..JJJ JJJ JJJ
+"      ######    .........
+"                  .....
+"                    .
 "
-"   You can find me at http://dnotvim.com
+"   This is definitely not the Vim configuration you're looking for.
 "
-"   Copyright 2014 Steve Francia
+"   Fully XDG base directory spec complaint ".vimrc" (definitely not)
+"   configuration aiming for a small footprint.
 "
-"   Licensed under the Apache License, Version 2.0 (the "License");
-"   you may not use this file except in compliance with the License.
-"   You may obtain a copy of the License at
+"   Most of this file came from github.com/spf13/spf13-vim.
+"   However, it's worth mentioning that spf13-vim itself is abandoned,
+"   as well as the Vundle (plugin manager) used in the setup.
 "
-"       http://www.apache.org/licenses/LICENSE-2.0
-"
-"   Unless required by applicable law or agreed to in writing, software
-"   distributed under the License is distributed on an "AS IS" BASIS,
-"   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-"   See the License for the specific language governing permissions and
-"   limitations under the License.
+"   For a modern setup I suggest replacing Vundle with Neobundle, plus
+"   a refactor in the bundles.vim. Ref: github.com/Shougo/neobundle.vim
 " }
 
 " Environment {
-
-" Identify platform {
-silent function! OSX()
-return has('macunix')
-        endfunction
-        silent function! LINUX()
-        return has('unix') && !has('macunix') && !has('win32unix')
-    endfunction
-    silent function! WINDOWS()
-    return  (has('win32') || has('win64'))
-endfunction
-" }
 
 " XDG base directory specification support {
 let g:xdg_configs = {
@@ -56,23 +52,16 @@ let g:xdg_configs = {
 set viminfo+='1000,n$XDG_CACHE_HOME/vim/info
 set runtimepath=$XDG_CONFIG_HOME/vim,$VIMRUNTIME,$XDG_CONFIG_HOME/vim/after
 
-if !WINDOWS()
+if (has('win32') || has('win64')) " Windows bad
+    set runtimepath+=$XDG_CONFIG_HOME/vim/vimfiles,$XDG_CONFIG_HOME/vim/vimfiles/after
+else
     set shell=/bin/sh
 endif
-" }
 
-" Windows Compatible {
-if WINDOWS()
-    set runtimepath+=$XDG_CONFIG_HOME/vim/vimfiles,$XDG_CONFIG_HOME/vim/vimfiles/after
-endif
-" }
-
-" Arrow Key Fix {
-" https://github.com/dnotvim/dnotvim-vim/issues/780
+" Arrow key workaround
 if &term[:4] == "xterm" || &term[:5] == 'screen' || &term[:3] == 'rxvt'
     inoremap <silent> <C-[>OC <RIGHT>
 endif
-" }
 " }
 
 " Use before config if available {
@@ -91,19 +80,7 @@ endif
 " }
 
 " General {
-set background=dark         " Assume a dark background
-
-" Allow to trigger background
-function! ToggleBG()
-    let s:tbg = &background
-    " Inversion
-    if s:tbg == "dark"
-        set background=light
-    else
-        set background=dark
-    endif
-endfunction
-noremap <leader>bg :call ToggleBG()<CR>
+set background=dark
 
 filetype plugin indent on " Automatically detect file types.
 
@@ -492,17 +469,11 @@ if count(g:dnotvim_bundle_groups, 'writing')
 endif
 " }
 
-" PIV {
-if isdirectory(expand("$XDG_CONFIG_HOME/vim/bundle/PIV"))
-    let g:DisableAutoPHPFolding = 0
-    let g:PIVAutoClose = 0
-endif
-" }
-
 " Misc {
 if isdirectory(expand("$XDG_CONFIG_HOME/vim/bundle/nerdtree"))
     let g:NERDShutUp=1
 endif
+
 if isdirectory(expand("$XDG_CONFIG_HOME/vim/bundle/matchit.zip"))
     let b:match_ignorecase = 1
 endif
@@ -608,7 +579,7 @@ if isdirectory(expand("$XDG_CONFIG_HOME/vim/bundle/ctrlp.vim/"))
     elseif executable('ack')
         let s:ctrlp_fallback = 'ack %s --nocolor -f'
         " On Windows use "dir" as fallback command.
-    elseif executable('rg')
+    elseif executable('rg') " Preferable
         let s:ctrlp_fallback= 'rg %s --color never'
     elseif WINDOWS()
         let s:ctrlp_fallback = 'dir %s /-n /b /s /a-d'
@@ -653,9 +624,6 @@ if isdirectory(expand("$XDG_CONFIG_HOME/vim/bundle/vim-fugitive/"))
     nnoremap <silent> <leader>gr :Gread<CR>
     nnoremap <silent> <leader>gw :Gwrite<CR>
     nnoremap <silent> <leader>ge :Gedit<CR>
-    " Mnemonic _i_nteractive
-    nnoremap <silent> <leader>gi :Git add -p %<CR>
-    nnoremap <silent> <leader>gg :SignifyToggle<CR>
 endif
 "}
 
@@ -680,47 +648,26 @@ if count(g:dnotvim_bundle_groups, 'youcompleteme')
     autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
     autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 
-    " Haskell post write lint and check with ghcmod
-    " $ `cabal install ghcmod` if missing and ensure
-    " ~/.cabal/bin is in your $PATH.
-    if !executable("ghcmod")
-        autocmd BufWritePost *.hs GhcModCheckAndLintAsync
-    endif
-
-    " For snippet_complete marker.
-    if !exists("g:dnotvim_no_conceal")
-        if has('conceal')
-            set conceallevel=2 concealcursor=i
-        endif
-    endif
-
-    " Disable the neosnippet preview candidate window
-    " When enabled, there can be too much visual noise
-    " especially when splits are used.
     set completeopt-=preview
 endif
 " }
 
-" vim-airline {
 if isdirectory(expand("$XDG_CONFIG_HOME/vim/bundle/vim-airline-themes/"))
     if !exists('g:airline_theme')
-        " Default in terminal vim is 'dark'
         let g:airline_theme = 'monochrome'
     endif
 
     if !exists('g:airline_powerline_fonts')
-        " Use the default set of separators with a few customizations
-        let g:airline_left_sep='›'  " Slightly fancier than '>'
-        let g:airline_right_sep='‹' " Slightly fancier than '<'
+        let g:airline_left_sep='>'
+        let g:airline_right_sep='<'
     endif
 endif
-" }
 " }
 
 " Functions {
 
 " Initialize directories {
-function! InitializeDirectories()
+function! InitializeXDGDirectories()
     let directories = [
         \ g:xdg_configs.directory,
         \ g:xdg_configs.backup,
@@ -751,7 +698,7 @@ function! InitializeDirectories()
     exec "set runtimepath =" . $XDG_CONFIG_HOME . "/vim," . $VIMRUNTIME . "," . g:xdg_configs.after
     endfor
 endfunction
-call InitializeDirectories()
+call InitializeXDGDirectories()
 " }
 
 " Initialize NERDTree as needed {
