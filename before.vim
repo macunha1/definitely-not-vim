@@ -1,15 +1,13 @@
 " Commands to execute before the Plugins are loaded
 " Customizations are (usually) better suited here.
 
-let g:dnotvim_bundle_groups = ['general', 'programming']
+let g:dnotvim_bundle_groups = ['general', 'programming', 'infra', 'misc']
 
 let g:vim_json_syntax_concealcursor = ''
 let g:vim_json_syntax_conceal = 0
 
 let g:neoformat_enabled_python = ['autopep8', 'yapf']
 let g:neoformat_enabled_ruby = ['rubocop']
-
-let g:python3_host_prog = '/usr/local/bin/python3'
 
 let g:terraform_align = 0
 let g:terraform_fmt_on_save = 1

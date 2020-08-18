@@ -1,28 +1,25 @@
 " Modeline and Notes {
 " vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:
 "
-"
-"    ##############..... ##############
-"    ##############......##############
-"     ###########._ ......_###########
-"   __| |####/  _(_).....(_) |#####| |_   _
-"  / _` |/ _ \ |#| | '_ \| | __/ _ \ | | | |
-" | (_| |  __/  _| | | | | | |#  __/ | |_| |
-"  \__,_|\___|_|#|_|_| |_|_|\__\___|_|\__, |
-"      ##########.......########      |___/
-"      ##########_...._##| |###..
-"      ######| '_ \./ _ \| __|.....
-"    ..######| |#| | (#) | |_.........
-"  ....######|_|#|_|\___/ \__|..........
-"    ..################JJJ............
-"      ################.............
-"      ##############.JJJ.JJJJJJJJJJ
-"      ############...JJ...JJ..JJ  JJ
-"      ##########....JJ...JJ..JJ  JJ
-"      ########......JJJ..JJJ JJJ JJJ
-"      ######    .........
-"                  .....
-"                    .
+"                      .
+"      ##############..... ##############
+"     _#| |####/  _(_).....(_) |#####| |#   _
+"    / _` |/ _ \ |#| | '_ \| | __/ _ \ | | | |
+"   | (_| |  __/  _| | | | | | |#  __/ | |_| |
+"    \__,_|\___|_|#|_|_| |_|_|\__\___|_|\__, |
+"        ##########_...._##| ###..      |___/
+"        ######| '_ \./ _ \| __|.....
+"      ..######| |#| | (#) | |_.........
+"    ....######|_|#|_|\___/#\__|..........
+"      ..################JJJ............
+"        ################.............
+"        ##############.JJJ.JJJJJJJJJJ
+"        ############...JJ...JJ..JJ  JJ
+"        ##########....JJ...JJ..JJ  JJ
+"        ########......JJJ..JJJ JJJ JJJ
+"        ######    .........
+"                    .....
+"                      .
 "
 "   This is definitely not the Vim configuration you're looking for.
 "
@@ -65,16 +62,16 @@ endif
 " }
 
 " Use before config if available {
-if filereadable(expand("$XDG_CONFIG_HOME/vim/before.vim"))
+if filereadable(expand($XDG_CONFIG_HOME . "/vim/before.vim"))
     source $XDG_CONFIG_HOME/vim/before.vim
 endif
 " }
 
 " Use bundles config {
 set rtp+=$XDG_CONFIG_HOME/vim/bundle/vundle
-let g:vundle#bundle_dir = "$XDG_CONFIG_HOME/vim/bundle"
+let g:vundle#bundle_dir = $XDG_CONFIG_HOME . "/vim/bundle"
 
-if filereadable(expand("$XDG_CONFIG_HOME/vim/bundles.vim"))
+if filereadable(expand($XDG_CONFIG_HOME . "/vim/bundles.vim"))
     source $XDG_CONFIG_HOME/vim/bundles.vim
 endif
 " }
@@ -86,7 +83,7 @@ filetype plugin indent on " Automatically detect file types.
 
 syntax on " Syntax highlighting
 
-set term=xterm-256color " works around TERM=alacritty
+set term=xterm-256color " works around unknown TERM
 set termguicolors
 set clipboard+=unnamedplus
 
@@ -109,7 +106,6 @@ set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
 set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility
 set virtualedit=onemore             " Allow for cursor beyond last character
 set history=1000                    " Store a ton of history (default is 20)
-set spell                           " Spell checking on
 set hidden                          " Allow buffer switching without saving
 set iskeyword-=.                    " '.' is an end of word designator
 set iskeyword-=#                    " '#' is an end of word designator
@@ -213,38 +209,44 @@ set softtabstop=4               " Let backspace delete indent
 set nojoinspaces                " Prevents inserting two spaces after punctuation on a join (J)
 set splitright                  " Puts new vsplit windows to the right of the current
 set splitbelow                  " Puts new split windows to the bottom of the current
-"set matchpairs+=<:>             " Match, to be used with %
 set pastetoggle=<F12>           " pastetoggle (sane indentation on pastes)
+
 "set comments=sl:/*,mb:*,elx:*/  " auto format comment blocks
 " Remove trailing whitespaces and ^M chars
 " To disable the stripping of whitespace, add the following to your
 " .vimrc.before.local file:
 "   let g:dnotvim_keep_trailing_whitespace = 1
-autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl,sql autocmd BufWritePre <buffer> if !exists('g:dnotvim_keep_trailing_whitespace') | call StripTrailingWhitespace() | endif
-"autocmd FileType go autocmd BufWritePre <buffer> Fmt
-autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
+
+autocmd FileType
+ \ c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl,sql
+ \ autocmd BufWritePre <buffer> if !exists('g:dnotvim_keep_trailing_whitespace')
+   \ call StripTrailingWhitespace()
+ \ endif
+
+" following lines would better fit a plugin.
+autocmd BufEnter *.html.twig set filetype=html.twig
+autocmd BufEnter *.coffee set filetype=coffee syntax=coffee
+autocmd BufEnter *.tf,*.tfvars set syntax=terraform
+autocmd BufEnter *.kt set syntax=kotlin
+autocmd BufEnter *.yaml,*.yml set syntax=yaml
+
 autocmd FileType haskell,puppet,ruby,yml setlocal expandtab shiftwidth=2 softtabstop=2
-" preceding line best in a plugin but here for now.
-
-autocmd BufNewFile,BufRead *.coffee set filetype=coffee
-
-" Workaround vim-commentary for Haskell
+autocmd FileType json setlocal conceallevel=2 concealcursor=
+autocmd FileType go setlocal ts=4 noexpandtab
+autocmd FileType yaml,javascript setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType terraform setlocal commentstring=#%s
 autocmd FileType haskell setlocal commentstring=--\ %s
-
-" Workaround broken colour highlighting in Haskell
-autocmd FileType haskell,rust setlocal nospell
 " }
 
 " Key (re)Mappings {
-" The default leader is '\', but many people prefer ',' as it's in a standard
-" location. To override this behavior and set it back to '\' (or any other
-" character) add the following to your .vimrc.before.local file:
-"   let g:dnotvim_leader='\'
+" The default leader is '\', but ',' is prefered, since it's in a standard
+" location between keyboard layouts. To overwrite set 'g:dnotvim_leader'.
 if !exists('g:dnotvim_leader')
     let mapleader = ','
 else
     let mapleader=g:dnotvim_leader
 endif
+
 if !exists('g:dnotvim_localleader')
     let maplocalleader = '_'
 else
@@ -252,8 +254,7 @@ else
 endif
 
 " The default mappings for editing and applying the dnotvim configuration
-" are <leader>ev and <leader>sv respectively. Change them to your preference
-" by adding the following to your .vimrc.before.local file:
+" are <leader>ev and <leader>sv respectively. Change them in before.vim
 "   let g:dnotvim_edit_config_mapping='<leader>ec'
 "   let g:dnotvim_apply_config_mapping='<leader>sc'
 if !exists('g:dnotvim_edit_config_mapping')
@@ -267,18 +268,6 @@ else
     let s:dnotvim_apply_config_mapping = g:dnotvim_apply_config_mapping
 endif
 
-" Easier moving in tabs and windows
-" The lines conflict with the default digraph mapping of <C-K>
-" If you prefer that functionality, add the following to your
-" .vimrc.before.local file:
-"   let g:dnotvim_no_easyWindows = 1
-if !exists('g:dnotvim_no_easyWindows')
-    map <C-J> <C-W>j<C-W>_
-    map <C-K> <C-W>k<C-W>_
-    map <C-L> <C-W>l<C-W>_
-    map <C-H> <C-W>h<C-W>_
-endif
-
 " Wrapped lines goes down/up to next row, rather than next line in file.
 noremap j gj
 noremap k gk
@@ -286,9 +275,9 @@ noremap k gk
 " End/Start of line motion keys act relative to row/wrap width in the
 " presence of `:set wrap`, and relative to line for `:set nowrap`.
 " Default vim behaviour is to act relative to text line in both cases
-" If you prefer the default behaviour, add the following to your
-" .vimrc.before.local file:
-"   let g:dnotvim_no_wrapRelMotion = 1
+"
+" If you prefer the default behaviour, put the following in before.vim
+" let g:dnotvim_no_wrapRelMotion = 1
 if !exists('g:dnotvim_no_wrapRelMotion')
     " Same for 0, home, end, etc
     function! WrapRelativeMotion(key, ...)
@@ -303,16 +292,17 @@ if !exists('g:dnotvim_no_wrapRelMotion')
         endif
     endfunction
 
-    " Map g* keys in Normal, Operator-pending, and Visual+select
     noremap $ :call WrapRelativeMotion("$")<CR>
     noremap <End> :call WrapRelativeMotion("$")<CR>
     noremap 0 :call WrapRelativeMotion("0")<CR>
     noremap <Home> :call WrapRelativeMotion("0")<CR>
     noremap ^ :call WrapRelativeMotion("^")<CR>
+
     " Overwrite the operator pending $/<End> mappings from above
     " to force inclusive motion with :execute normal!
     onoremap $ v:call WrapRelativeMotion("$")<CR>
     onoremap <End> v:call WrapRelativeMotion("$")<CR>
+
     " Overwrite the Visual+select mode mappings from above
     " to ensure the correct vis_sel flag is passed to function
     vnoremap $ :<C-U>call WrapRelativeMotion("$", 1)<CR>
@@ -324,8 +314,7 @@ endif
 
 " The following two lines conflict with moving to top and
 " bottom of the screen
-" If you prefer that functionality, add the following to your
-" .vimrc.before.local file:
+" If you prefer that functionality:
 "   let g:dnotvim_no_fastTabs = 1
 if !exists('g:dnotvim_no_fastTabs')
     map <S-H> gT
@@ -352,28 +341,15 @@ endif
 " Yank from the cursor to the end of the line, to be consistent with C and D.
 nnoremap Y y$
 
-" Code folding options
-nmap <leader>f0 :set foldlevel=0<CR>
-nmap <leader>f1 :set foldlevel=1<CR>
-nmap <leader>f2 :set foldlevel=2<CR>
-nmap <leader>f3 :set foldlevel=3<CR>
-nmap <leader>f4 :set foldlevel=4<CR>
-nmap <leader>f5 :set foldlevel=5<CR>
-nmap <leader>f6 :set foldlevel=6<CR>
-nmap <leader>f7 :set foldlevel=7<CR>
-nmap <leader>f8 :set foldlevel=8<CR>
-nmap <leader>f9 :set foldlevel=9<CR>
-
 " Most prefer to toggle search highlighting rather than clear the current
 " search results. To clear search highlighting rather than toggle it on
-" and off, add the following to your .vimrc.before.local file:
+" and off:
 "   let g:dnotvim_clear_search_highlight = 1
 if exists('g:dnotvim_clear_search_highlight')
     nmap <silent> <leader>/ :nohlsearch<CR>
 else
     nmap <silent> <leader>/ :set invhlsearch<CR>
 endif
-
 
 " Find merge conflict markers
 map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
@@ -383,7 +359,7 @@ map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
 cmap cwd lcd %:p:h
 cmap cd. lcd %:p:h
 
-" Visual shifting (does not exit Visual mode)
+" Visual shifting does not exit Visual mode
 vnoremap < <gv
 vnoremap > >gv
 
@@ -446,7 +422,6 @@ if count(g:dnotvim_bundle_groups, 'go')
 endif
 " }
 
-
 " TextObj Sentence {
 if count(g:dnotvim_bundle_groups, 'writing')
     augroup textobj_sentence
@@ -470,11 +445,11 @@ endif
 " }
 
 " Misc {
-if isdirectory(expand("$XDG_CONFIG_HOME/vim/bundle/nerdtree"))
+if isdirectory(expand($XDG_CONFIG_HOME. "/vim/bundle/nerdtree"))
     let g:NERDShutUp=1
 endif
 
-if isdirectory(expand("$XDG_CONFIG_HOME/vim/bundle/matchit.zip"))
+if isdirectory(expand($XDG_CONFIG_HOME . "/vim/bundle/matchit.zip"))
     let b:match_ignorecase = 1
 endif
 " }
@@ -517,7 +492,7 @@ nmap <Leader>ac <Plug>ToggleAutoCloseMappings
 " }
 
 " NerdTree {
-if isdirectory(expand("$XDG_CONFIG_HOME/vim/bundle/nerdtree"))
+if isdirectory(expand($XDG_CONFIG_HOME . "/vim/bundle/nerdtree"))
     let NERDTreeShowBookmarks=1
     let NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$']
     let NERDTreeChDirMode=0
@@ -534,7 +509,7 @@ endif
 " }
 
 " Tabularize {
-if isdirectory(expand("$XDG_CONFIG_HOME/vim/bundle/tabular"))
+if isdirectory(expand($XDG_CONFIG_HOME . "/vim/bundle/tabular"))
     nmap <Leader>a& :Tabularize /&<CR>
     vmap <Leader>a& :Tabularize /&<CR>
     nmap <Leader>a= :Tabularize /^[^=]*\zs=<CR>
@@ -556,7 +531,7 @@ endif
 
 " Session List {
 set sessionoptions=blank,buffers,curdir,folds,tabpages,winsize
-if isdirectory(expand("$XDG_CONFIG_HOME/vim/bundle/sessionman.vim/"))
+if isdirectory(expand($XDG_CONFIG_HOME . "/vim/bundle/sessionman.vim/"))
     nmap <leader>sl :SessionList<CR>
     nmap <leader>ss :SessionSave<CR>
     nmap <leader>sc :SessionClose<CR>
@@ -564,7 +539,7 @@ endif
 " }
 
 " ctrlp {
-if isdirectory(expand("$XDG_CONFIG_HOME/vim/bundle/ctrlp.vim/"))
+if isdirectory(expand($XDG_CONFIG_HOME . "/vim/bundle/ctrlp.vim/"))
     let g:ctrlp_working_path_mode = 'ra'
     nnoremap <silent> <D-t> :CtrlP<CR>
     nnoremap <silent> <D-r> :CtrlPMRU<CR>
@@ -597,7 +572,7 @@ if isdirectory(expand("$XDG_CONFIG_HOME/vim/bundle/ctrlp.vim/"))
                 \ 'fallback': s:ctrlp_fallback
                 \ }
 
-    if isdirectory(expand("$XDG_CONFIG_HOME/vim/bundle/ctrlp-funky/"))
+    if isdirectory(expand($XDG_CONFIG_HOME . "/vim/bundle/ctrlp-funky/"))
         " CtrlP extensions
         let g:ctrlp_extensions = ['funky']
 
@@ -608,13 +583,13 @@ endif
 "}
 
 " Rainbow demiliters {
-if isdirectory(expand("$XDG_CONFIG_HOME/vim/bundle/rainbow/"))
+if isdirectory(expand($XDG_CONFIG_HOME . "/vim/bundle/rainbow/"))
     let g:rainbow_active = 1
 endif
 "}
 
 " Fugitive (Git) {
-if isdirectory(expand("$XDG_CONFIG_HOME/vim/bundle/vim-fugitive/"))
+if isdirectory(expand($XDG_CONFIG_HOME . "/vim/bundle/vim-fugitive/"))
     nnoremap <silent> <leader>gs :Gstatus<CR>
     nnoremap <silent> <leader>gd :Gdiff<CR>
     nnoremap <silent> <leader>gc :Gcommit<CR>
@@ -652,7 +627,7 @@ if count(g:dnotvim_bundle_groups, 'youcompleteme')
 endif
 " }
 
-if isdirectory(expand("$XDG_CONFIG_HOME/vim/bundle/vim-airline-themes/"))
+if isdirectory(expand($XDG_CONFIG_HOME . "/vim/bundle/vim-airline-themes/"))
     if !exists('g:airline_theme')
         let g:airline_theme = 'monochrome'
     endif
@@ -728,18 +703,4 @@ function! StripTrailingWhitespace()
     call cursor(l, c)
 endfunction
 " }
-" }
-
-" Auto command (execute when vim opens up) {
-autocmd BufEnter *.tf,*.tfvars set syntax=terraform
-autocmd BufEnter *.coffee set syntax=coffee
-autocmd BufEnter *.kt set syntax=kotlin
-autocmd BufEnter *.yaml,*.yml set syntax=yaml
-
-autocmd FileType json setlocal conceallevel=2 concealcursor=
-autocmd FileType go setlocal ts=4 noexpandtab
-autocmd FileType terraform setlocal commentstring=#%s
-autocmd FileType yaml,javascript setlocal ts=2 sts=2 sw=2 expandtab
-
-autocmd VimEnter * set nospell
 " }
