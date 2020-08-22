@@ -1,7 +1,7 @@
 " Commands to execute before the Plugins are loaded
 " Customizations are (usually) better suited here.
 
-let g:dnotvim_bundle_groups = ['general', 'programming', 'infra', 'misc']
+let g:dnotvim_plugin_groups = ['general', 'programming', 'infra', 'misc']
 
 let g:vim_json_syntax_concealcursor = ''
 let g:vim_json_syntax_conceal = 0

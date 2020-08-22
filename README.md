@@ -24,15 +24,13 @@ This is definitely not the Vim configuration you're looking for.
                      .
 ```
 
-Fully XDG base directory spec complaint ".vimrc" (definitely not) configuration
-aiming for a small footprint and clean $HOME.
+Fully XDG base directory spec complaint ".vimrc" (definitely not vimrc)
+configuration aiming for a small footprint, self-contained, declarative and most
+important CLEAN `$HOME`. "Tidy $HOME, Tidy Mind"
 
-Most of this repository came from [spf13/spf13-vim](https://github.com/spf13/spf13-vim).
-However, it's worth mentioning that spf13-vim itself is abandoned,
-as well as the Vundle (plugin manager) used in the setup.
-
-For a modern setup I suggest replacing Vundle with [Neobundle](https://github.com/Shougo/neobundle.vim), plus
-a refactor in the bundles.vim.
+Definitely not Vim is a modern adaptation of [spf13/spf13-vim](https://github.com/spf13/spf13-vim).
+Including XDG base directory, updated [plugins](plugins.vim) sources and the
+best plugin manager out there: [Dein.vim](https://github.com/Shougo/dein.vim)
 
 ## Installation
 
@@ -43,19 +41,31 @@ git clone https://github.com/macunha1/definitely-not-vim \
     ${XDG_CONFIG_HOME}/vim
 ```
 
-TL;DR instructions at [Vundle's README](https://github.com/VundleVim/Vundle.vim#quick-start).
+TL;DR instructions from [Dein.vim's README](https://github.com/Shougo/dein.vim#quick-start).
 
 ```bash
-git clone https://github.com/VundleVim/Vundle.vim \
-    ${XDG_CONFIG_HOME}/vim/bundle/vundle
+git clone https://github.com/Shougo/dein.vim \
+    ${XDG_CONFIG_HOME}/vim/plugins/dein.vim
 ```
 
-Edit mainly the [before](before.vim) with your customization, you can pick
-some premade "bundle groups" with generic configurations (e.g. programming
-languages or "infra" tools). More info at [bundles](bundles.vim).
+Edit mainly the [before file](before.vim) with your customization, you can pick
+some premade "plugin groups" with generic configurations (e.g. programming
+languages or "infra" tools). More info at [plugins](plugins.vim).
 
-Once you finish your tweaks, open `vim` anywhere to load the initial setup
-(create folders and load stuff) then run `:BundleInstall`.
+Once you finish your tweaks with the configuration files, open `vim` anywhere
+to load the initial setup (create folders, downloads plugins and load stuff).
+Additionally, `Dein.vim` will inspect changes in plugins list and install the
+delta every time `vim` starts.
+
+Lastly, let `vim` know where you're hiding the configuration changing `VIMINIT`
+environment variable value to
+
+``` bash
+export VIMINIT="source ${XDG_CONFIG_HOME}/vim/init.vim" # or anywhere else
+```
+
+Make sure you persist this environment variable in your profile (e.g.
+`.bash_profile`, `.zprofile`) to automatically load for future sessions
 
 ## License
 

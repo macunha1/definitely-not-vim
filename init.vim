@@ -21,17 +21,13 @@
 "                    .....
 "                      .
 "
-"   This is definitely not the Vim configuration you're looking for.
+" Fully XDG base directory spec complaint ".vimrc" (definitely not vimrc)
+" configuration aiming for a small footprint, self-contained, declarative and most
+" important CLEAN `$HOME`. "Tidy $HOME, Tidy Mind"
 "
-"   Fully XDG base directory spec complaint ".vimrc" (definitely not)
-"   configuration aiming for a small footprint.
-"
-"   Most of this file came from github.com/spf13/spf13-vim.
-"   However, it's worth mentioning that spf13-vim itself is abandoned,
-"   as well as the Vundle (plugin manager) used in the setup.
-"
-"   For a modern setup I suggest replacing Vundle with Neobundle, plus
-"   a refactor in the bundles.vim. Ref: github.com/Shougo/neobundle.vim
+" Definitely not Vim is a modern adaptation of [spf13/spf13-vim](https://github.com/spf13/spf13-vim).
+" Including XDG base directory, updated [plugins](plugins.vim) sources and the
+" best plugin manager out there: [Dein.vim](https://github.com/Shougo/dein.vim)
 " }
 
 " Environment {
@@ -67,17 +63,15 @@ if filereadable(expand($XDG_CONFIG_HOME . "/vim/before.vim"))
 endif
 " }
 
-" Use bundles config {
-set rtp+=$XDG_CONFIG_HOME/vim/bundle/vundle
-let g:vundle#bundle_dir = $XDG_CONFIG_HOME . "/vim/bundle"
-
-if filereadable(expand($XDG_CONFIG_HOME . "/vim/bundles.vim"))
-    source $XDG_CONFIG_HOME/vim/bundles.vim
+" Use plugins config {
+if filereadable(expand($XDG_CONFIG_HOME . "/vim/plugins.vim"))
+    source $XDG_CONFIG_HOME/vim/plugins.vim
 endif
 " }
 
 " General {
 set background=dark
+set nospell
 
 filetype plugin indent on " Automatically detect file types.
 
@@ -85,7 +79,7 @@ syntax on " Syntax highlighting
 
 set term=xterm-256color " works around unknown TERM
 set termguicolors
-set clipboard+=unnamedplus
+set clipboard=unnamedplus
 
 scriptencoding utf-8
 set encoding=utf-8
@@ -401,7 +395,7 @@ map <silent> <F11> :call system("wmctrl -ir " . v:windowid . " -b toggle,fullscr
 " Plugins {
 
 " GoLang {
-if count(g:dnotvim_bundle_groups, 'go')
+if count(g:dnotvim_plugin_groups, 'go')
     let g:go_highlight_functions = 1
     let g:go_highlight_methods = 1
     let g:go_highlight_structs = 1
@@ -423,7 +417,7 @@ endif
 " }
 
 " TextObj Sentence {
-if count(g:dnotvim_bundle_groups, 'writing')
+if count(g:dnotvim_plugin_groups, 'writing')
     augroup textobj_sentence
         autocmd!
         autocmd FileType markdown call textobj#sentence#init()
@@ -434,7 +428,7 @@ endif
 " }
 
 " TextObj Quote {
-if count(g:dnotvim_bundle_groups, 'writing')
+if count(g:dnotvim_plugin_groups, 'writing')
     augroup textobj_quote
         autocmd!
         autocmd FileType markdown call textobj#quote#init()
@@ -445,11 +439,11 @@ endif
 " }
 
 " Misc {
-if isdirectory(expand($XDG_CONFIG_HOME. "/vim/bundle/nerdtree"))
+if isdirectory(expand($XDG_CONFIG_HOME. "/vim/plugins/nerdtree"))
     let g:NERDShutUp=1
 endif
 
-if isdirectory(expand($XDG_CONFIG_HOME . "/vim/bundle/matchit.zip"))
+if isdirectory(expand($XDG_CONFIG_HOME . "/vim/plugins/matchit.zip"))
     let b:match_ignorecase = 1
 endif
 " }
@@ -492,7 +486,7 @@ nmap <Leader>ac <Plug>ToggleAutoCloseMappings
 " }
 
 " NerdTree {
-if isdirectory(expand($XDG_CONFIG_HOME . "/vim/bundle/nerdtree"))
+if isdirectory(expand($XDG_CONFIG_HOME . "/vim/plugins/nerdtree"))
     let NERDTreeShowBookmarks=1
     let NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$']
     let NERDTreeChDirMode=0
@@ -509,7 +503,7 @@ endif
 " }
 
 " Tabularize {
-if isdirectory(expand($XDG_CONFIG_HOME . "/vim/bundle/tabular"))
+if isdirectory(expand($XDG_CONFIG_HOME . "/vim/plugins/tabular"))
     nmap <Leader>a& :Tabularize /&<CR>
     vmap <Leader>a& :Tabularize /&<CR>
     nmap <Leader>a= :Tabularize /^[^=]*\zs=<CR>
@@ -531,7 +525,7 @@ endif
 
 " Session List {
 set sessionoptions=blank,buffers,curdir,folds,tabpages,winsize
-if isdirectory(expand($XDG_CONFIG_HOME . "/vim/bundle/sessionman.vim/"))
+if isdirectory(expand($XDG_CONFIG_HOME . "/vim/plugins/sessionman.vim/"))
     nmap <leader>sl :SessionList<CR>
     nmap <leader>ss :SessionSave<CR>
     nmap <leader>sc :SessionClose<CR>
@@ -539,7 +533,7 @@ endif
 " }
 
 " ctrlp {
-if isdirectory(expand($XDG_CONFIG_HOME . "/vim/bundle/ctrlp.vim/"))
+if isdirectory(expand($XDG_CONFIG_HOME . "/vim/plugins/ctrlp.vim/"))
     let g:ctrlp_working_path_mode = 'ra'
     nnoremap <silent> <D-t> :CtrlP<CR>
     nnoremap <silent> <D-r> :CtrlPMRU<CR>
@@ -572,7 +566,7 @@ if isdirectory(expand($XDG_CONFIG_HOME . "/vim/bundle/ctrlp.vim/"))
                 \ 'fallback': s:ctrlp_fallback
                 \ }
 
-    if isdirectory(expand($XDG_CONFIG_HOME . "/vim/bundle/ctrlp-funky/"))
+    if isdirectory(expand($XDG_CONFIG_HOME . "/vim/plugins/ctrlp-funky/"))
         " CtrlP extensions
         let g:ctrlp_extensions = ['funky']
 
@@ -583,13 +577,13 @@ endif
 "}
 
 " Rainbow demiliters {
-if isdirectory(expand($XDG_CONFIG_HOME . "/vim/bundle/rainbow/"))
+if isdirectory(expand($XDG_CONFIG_HOME . "/vim/plugins/rainbow/"))
     let g:rainbow_active = 1
 endif
 "}
 
 " Fugitive (Git) {
-if isdirectory(expand($XDG_CONFIG_HOME . "/vim/bundle/vim-fugitive/"))
+if isdirectory(expand($XDG_CONFIG_HOME . "/vim/plugins/vim-fugitive/"))
     nnoremap <silent> <leader>gs :Gstatus<CR>
     nnoremap <silent> <leader>gd :Gdiff<CR>
     nnoremap <silent> <leader>gc :Gcommit<CR>
@@ -603,7 +597,7 @@ endif
 "}
 
 " YouCompleteMe {
-if count(g:dnotvim_bundle_groups, 'youcompleteme')
+if count(g:dnotvim_plugin_groups, 'youcompleteme')
     let g:acp_enableAtStartup = 0
 
     " enable completion from tags
@@ -627,7 +621,7 @@ if count(g:dnotvim_bundle_groups, 'youcompleteme')
 endif
 " }
 
-if isdirectory(expand($XDG_CONFIG_HOME . "/vim/bundle/vim-airline-themes/"))
+if isdirectory(expand($XDG_CONFIG_HOME . "/vim/plugins/vim-airline-themes/"))
     if !exists('g:airline_theme')
         let g:airline_theme = 'monochrome'
     endif
@@ -670,7 +664,7 @@ function! InitializeXDGDirectories()
     exec "set backupdir =" . g:xdg_configs.backup
     exec "set viewdir =" . g:xdg_configs.view
     exec "set viminfo+='1000,n" . g:xdg_configs.info
-    exec "set runtimepath =" . $XDG_CONFIG_HOME . "/vim," . $VIMRUNTIME . "," . g:xdg_configs.after
+    exec "set runtimepath+=" . $XDG_CONFIG_HOME . "/vim," . $VIMRUNTIME . "," . g:xdg_configs.after
     endfor
 endfunction
 call InitializeXDGDirectories()
